@@ -11,31 +11,37 @@ async function main() {
   //     },
   //   })
   //   console.log(user)
-
   //   // Read users
   //   const users = await prisma.user.findMany()
   //   console.log(users)
+  //   //   Create new user with relations
+  //   const user = await prisma.user.create({
+  //     data: {
+  //       name: "Bob",
+  //       email: "bob@prisma.io",
+  //       posts: {
+  //         create: [
+  //           {
+  //             title: "Hello World",
+  //             published: true,
+  //           },
+  //           {
+  //             title: "My second post",
+  //             content: "This is still a draft",
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   })
+  //   console.log(user)
 
-  //   Create new user with relations
-  const user = await prisma.user.create({
-    data: {
-      name: "Bob",
-      email: "bob@prisma.io",
-      posts: {
-        create: [
-          {
-            title: "Hello World",
-            published: true,
-          },
-          {
-            title: "My second post",
-            content: "This is still a draft",
-          },
-        ],
-      },
+  //   Show all users with posts
+  const usersWithPosts = await prisma.user.findMany({
+    include: {
+      posts: true,
     },
   })
-  console.log(user)
+  console.dir(usersWithPosts, { depth: null })
 }
 
 main()
