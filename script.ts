@@ -12,9 +12,30 @@ async function main() {
   //   })
   //   console.log(user)
 
-  // Read users
-  const users = await prisma.user.findMany()
-  console.log(users)
+  //   // Read users
+  //   const users = await prisma.user.findMany()
+  //   console.log(users)
+
+  //   Create new user with relations
+  const user = await prisma.user.create({
+    data: {
+      name: "Bob",
+      email: "bob@prisma.io",
+      posts: {
+        create: [
+          {
+            title: "Hello World",
+            published: true,
+          },
+          {
+            title: "My second post",
+            content: "This is still a draft",
+          },
+        ],
+      },
+    },
+  })
+  console.log(user)
 }
 
 main()
